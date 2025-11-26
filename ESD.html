@@ -1,5 +1,5 @@
 <html>
-<script type='text/javascript'>
+	<script type='text/javascript'>
 	
 	// Parse URL
 	var params = new URLSearchParams(window.location.search);
@@ -63,33 +63,10 @@
 			UTM_campaign : utmCampaign,
 			UTM_Medium : utmMedium
         });
-         // Access Messaging Client
-        const messagingClient = embeddedservice_bootstrap.messagingClient;
-         // Add beforeSendMessage handler
-        messagingClient.on("beforeSendMessage", (event) => {
-            let original = event.message.text;
-
-            // Clean email spacing: remove spaces around @ and dots
-            let cleanedEmailText = original
-                .replace(/\s*@\s*/g, "@")       // remove spaces around @
-                .replace(/@\s+/g, "@")          // extra safety
-                .replace(/\s*\.\s*/g, ".");     // remove spaces around .
-
-            // Prevent link unfurling (UI only)
-            // Add zero-width space before every dot
-            let displaySafe = cleanedEmailText.replace(/\./g, "\u200B.");
-
-            // UI sees unfurl-safe version
-            event.displayMessage = displaySafe;
-
-            // Bot receives cleaned text
-            event.message.text = cleanedEmailText;
-        });
     });
     //Passing Web Context to Prechat - END
 
 
 </script>
-
 <script type='text/javascript' src='https://equinix--mktgaf.sandbox.my.site.com/ESWEqMIAWWebMsg1759324828854/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
-  </html>
+</html>
