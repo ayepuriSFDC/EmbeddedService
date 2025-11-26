@@ -52,7 +52,6 @@
 
 	
 	//Passing Web Context to Prechat - BEGIN
-
 	window.addEventListener("onEmbeddedMessagingReady", e => {
         //log event
         console.log("onEmbeddedMessagingReady event triggered");
@@ -63,41 +62,15 @@
 			UTM_campaign : utmCampaign,
 			UTM_Medium : utmMedium
         });
-		//Passing Web Context to Prechat - END
-        
-		// Fired when the chat visitor sends a message.
-		embeddedservice_bootstrap.addEventListener("onChasitorMessage", function(data) {
-
-		let original = data.message.text;
-		console.log('Original Text ', original);
-
-		// Clean email spacing: remove spaces around @ and dots
-		let cleanedEmailText = original;
-		const emailPattern = /[\w.-]+\s*@\s*[\w.-]+\s*\.\s*[\w.-]+/g;
-
-		// Use a function in the replace to operate only on the matched email string
-		cleanedEmailText = original.replace(emailPattern, (match) => {
-		// Apply cleaning logic ONLY to the suspected email address match
-		return match
-			.replace(/\s*@\s*/g, "@")   // Clean spaces around @
-			.replace(/\s*\.\s*/g, "."); // Clean spaces around .
-		});
-
-
-		// Prevent link unfurling (UI only)
-		// Add zero-width space before every dot
-		let displaySafe = cleanedEmailText.replace(/\./g, "\u200B.");
-
-		// UI sees unfurl-safe version
-		event.displayMessage = displaySafe;
-
-		// Bot receives cleaned text
-		event.message.text = cleanedEmailText;
-		
-		console.log('Cleanded Email Text ', cleanedEmailText);
-		console.log('Display Safe', displaySafe);
-		});
     });
+    //Passing Web Context to Prechat - END
+
+	window.addEventListener("onEmbeddedMessageSent", e => {
+        //log event
+        console.log("onEmbeddedMessageSent event triggered ", e);
+    });
+
+
 </script>
 <script type='text/javascript' src='https://equinix--mktgaf.sandbox.my.site.com/ESWEqMIAWWebMsg1759324828854/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 </html>
